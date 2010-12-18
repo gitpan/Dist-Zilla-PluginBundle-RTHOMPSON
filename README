@@ -1,0 +1,211 @@
+NAME
+    Dist::Zilla::PluginBundle::RTHOMPSON - RTHOMPSON's Dist::Zilla
+    Configuration
+
+VERSION
+    version 0.103521
+
+SYNOPSIS
+    In dist.ini:
+
+        [@RTHOMPSON]
+
+DESCRIPTION
+    This plugin bundle, in its default configuration, is equivalent to:
+
+        [AutoVersion]
+        major = 0
+        [GatherDir]
+        [PruneCruft]
+        [ManifestSkip]
+        [MetaYAML]
+        [License]
+        [ExecDir]
+        [ShareDir]
+        [MakeMaker]
+        [Manifest]
+        [PkgVersion]
+        [PodWeaver]
+        [InstallGuide]
+        [ReadmeAnyFromPod / text.build ]
+        filename = README
+        type = text
+        [ReadmeAnyFromPod / pod.root ]
+        filename = README.pod
+        type = pod
+        location = root
+        [CriticTests]
+        [PodTests]
+        [HasVersionTests]
+        [PortabilityTests]
+        [UnusedVarsTests]
+        [CompileTests]
+        skip = Test$
+        [KwaliteeTests]
+        [ExtraTests]
+        [ReportVersions]
+        [MinimumPerl]
+        [AutoPrereqs]
+        [CheckChangesHasContent]
+        [NextRelease]
+        [TestRelease]
+        [ConfirmRelease]
+        [UploadToCPAN]
+        [ArchiveRelease]
+        directory = releases
+        [Git::Check]
+        allow_dirty = dist.ini
+        allow_dirty = README.pod
+        [Git::Commit]
+        [Git::Tag]
+        [GithubMeta]
+
+    There are several options that can change the default configuation,
+    though.
+
+OPTIONS
+  -remove
+    This option can be used to remove specific plugins from the bundle. It
+    can be used multiple times.
+
+    Obviously, the default is not to remove any plugins.
+
+    Example:
+
+        ; Remove these two plugins from the bundle
+        -remove = CriticTests
+        -remove = GithubMeta
+
+  version, version_major
+    This option is used to specify the version of the module. The default is
+    'auto', which uses the AutoVersion plugin to choose a version number.
+    You can also set the version number manually, or choose 'disable' to
+    prevent this bundle from supplying a version.
+
+    Examples:
+
+        ; Use AutoVersion (default)
+        version = auto
+        version_major = 0
+        ; Use manual versioning
+        version = 1.14.04
+        ; Provide no version, so that another plugin can handle it.
+        version = disable
+
+  copy_file, move_file
+    If you want to copy or move files out of the build dir and into the
+    distribution dir, use these two options to specify those files. Both of
+    these options can be specified multiple times.
+
+    The most common reason to use this would be to put automatically
+    generated files under version control. For example, Github likes to see
+    a README file in your distribution, but if your README file is
+    auto-generated during the build, you need to copy each newly-generated
+    README file out of its build directory in order for Github to see it.
+
+    If you want to include an auto-generated file in your distribution but
+    you *don't* want to include it in the build, use "move_file" instead of
+    "copy_file".
+
+    The default is to move README.pod out of the build dir. If you use
+    "move_file" in your configuration, this default will be disabled, so if
+    you want it, make sure to include it along with your other "move_file"s.
+
+    Example:
+
+        copy_file = README
+        move_file = README.pod
+        copy_file = README.txt
+
+  synopsis_is_perl_code
+    If this is set to true (the default), then the SynopsisTests plugin will
+    be enabled. This plugin checks the perl syntax of the SYNOPSIS sections
+    of your modules. Obviously, if your SYNOPSIS section is not perl code
+    (case in point: this module), you should set this to false.
+
+    Example:
+
+        synopsis_is_perl_code = false
+
+  release
+    This option chooses the type of release to do. The default is 'real,'
+    which means "really upload the release to CPAN" (i.e. load the
+    "UploadToCPAN" plugin). You can set it to 'fake,' in which case the
+    "FakeRelease" plugin will be loaded, which simulates the release process
+    without actually doing anything. You can also set it to 'none' if you do
+    not want this module to load any release plugin, in which case your
+    dist.ini file should load a release plugin directly. Any other value for
+    this option will be interpreted as a release plugin name to be loaded.
+
+    Examples:
+
+        ; Release to CPAN for real (default)
+        release = real
+        ; For testing, you can do fake releases
+        release = fake
+        ; Or you can choose no release plugin
+        release = none
+        ; Or you can specify a specific release plugin.
+        release = OtherReleasePlugin
+
+  archive, archive_directory
+    If set to true, the "archive" option copies each released version of the
+    module to an archive directory, using the "ArchiveRelease" plugin. This
+    is the default. The name of the archive directory is specified using
+    "archive_directory", which is releases by default.
+
+    Examples:
+
+        ; archive each release to the "releases" directory
+        archive = true
+        archive_directory = releases
+        ; Or don't archive
+        archive = false
+
+  vcs
+    This option specifies which version control system is being used for the
+    distribution. Integration for that version control system is enabled.
+    The default is 'git', and currently the only other option is 'none',
+    which does not load any version control plugins.
+
+BUGS AND LIMITATIONS
+    This module should be more configurable. Suggestions welcome.
+
+    Please report any bugs or feature requests to
+    "rct+perlbug@thompsonclan.org".
+
+INSTALLATION
+    See perlmodinstall for information and options on installing Perl
+    modules.
+
+AUTHOR
+    Ryan C. Thompson <rct@thompsonclan.org>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2010 by Ryan C. Thompson.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
+DISCLAIMER OF WARRANTY
+    BECAUSE THIS SOFTWARE IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
+    FOR THE SOFTWARE, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN
+    OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES
+    PROVIDE THE SOFTWARE "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER
+    EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE
+    ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE SOFTWARE IS WITH
+    YOU. SHOULD THE SOFTWARE PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL
+    NECESSARY SERVICING, REPAIR, OR CORRECTION.
+
+    IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+    WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR
+    REDISTRIBUTE THE SOFTWARE AS PERMITTED BY THE ABOVE LICENCE, BE LIABLE
+    TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL, OR
+    CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE
+    SOFTWARE (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING
+    RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A
+    FAILURE OF THE SOFTWARE TO OPERATE WITH ANY OTHER SOFTWARE), EVEN IF
+    SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH
+    DAMAGES.
+

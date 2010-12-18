@@ -1,0 +1,31 @@
+---
+abstract: "RTHOMPSON's Dist::Zilla Configuration"
+author:
+  - 'Ryan C. Thompson <rct@thompsonclan.org>'
+build_requires:
+  English: 0
+  File::Find: 0
+  File::Temp: 0
+  Scalar::Util: 0
+  Test::More: 0.94
+  perl: 5.004
+configure_requires:
+  ExtUtils::MakeMaker: 6.31
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.102345, CPAN::Meta::Converter version 2.102400'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Dist-Zilla-PluginBundle-RTHOMPSON
+requires:
+  Carp: 0
+  Dist::Zilla::Role::PluginBundle::Easy: 0
+  Moose: 0
+  MooseX::Has::Sugar: 0
+  perl: 5.010
+  utf8: 0
+resources:
+  homepage: http://github.com/DarwinAwardWinner/Dist-Zilla-PluginBundle-RTHOMPSON/tree
+  repository: git://github.com/DarwinAwardWinner/Dist-Zilla-PluginBundle-RTHOMPSON.git
+version: 0.103521
