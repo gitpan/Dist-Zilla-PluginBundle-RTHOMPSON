@@ -28,4 +28,4 @@ requires:
 resources:
   homepage: http://github.com/DarwinAwardWinner/Dist-Zilla-PluginBundle-RTHOMPSON/tree
   repository: git://github.com/DarwinAwardWinner/Dist-Zilla-PluginBundle-RTHOMPSON.git
-version: 0.103521
+version: 0.103531

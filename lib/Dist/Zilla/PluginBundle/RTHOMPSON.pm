@@ -5,7 +5,7 @@ use utf8;
 
 package Dist::Zilla::PluginBundle::RTHOMPSON;
 BEGIN {
-  $Dist::Zilla::PluginBundle::RTHOMPSON::VERSION = '0.103521';
+  $Dist::Zilla::PluginBundle::RTHOMPSON::VERSION = '0.103531';
 }
 # ABSTRACT: RTHOMPSON's Dist::Zilla Configuration
 
@@ -187,7 +187,7 @@ sub configure {
         when ('git') {
             $self->add_plugins(
                 ['Git::Check' => {
-                    allow_dirty => [ 'dist.ini', 'README.pod' ],
+                    allow_dirty => [ 'dist.ini', 'README.pod', 'Changes' ],
                 } ],
                 'Git::Commit',
                 'Git::Tag',
@@ -212,7 +212,7 @@ Dist::Zilla::PluginBundle::RTHOMPSON - RTHOMPSON's Dist::Zilla Configuration
 
 =head1 VERSION
 
-version 0.103521
+version 0.103531
 
 =head1 SYNOPSIS
 

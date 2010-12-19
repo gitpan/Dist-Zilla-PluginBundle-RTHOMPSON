@@ -33,7 +33,7 @@ my %WriteMakefileArgs = (
     'MooseX::Has::Sugar' => '0',
     'utf8' => '0'
   },
-  'VERSION' => '0.103521',
+  'VERSION' => '0.103531',
   'test' => {
     'TESTS' => 't/*.t'
   }
