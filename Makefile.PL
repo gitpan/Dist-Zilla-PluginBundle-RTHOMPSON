@@ -12,7 +12,6 @@ my %WriteMakefileArgs = (
   'ABSTRACT' => 'RTHOMPSON\'s Dist::Zilla Configuration',
   'AUTHOR' => 'Ryan C. Thompson <rct@thompsonclan.org>',
   'BUILD_REQUIRES' => {
-    'English' => '0',
     'File::Find' => '0',
     'File::Temp' => '0',
     'Scalar::Util' => '0',
@@ -33,7 +32,7 @@ my %WriteMakefileArgs = (
     'MooseX::Has::Sugar' => '0',
     'utf8' => '0'
   },
-  'VERSION' => '0.103531',
+  'VERSION' => '0.103532',
   'test' => {
     'TESTS' => 't/*.t'
   }

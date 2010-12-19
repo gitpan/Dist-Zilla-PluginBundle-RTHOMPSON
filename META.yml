@@ -3,7 +3,6 @@ abstract: "RTHOMPSON's Dist::Zilla Configuration"
 author:
   - 'Ryan C. Thompson <rct@thompsonclan.org>'
 build_requires:
-  English: 0
   File::Find: 0
   File::Temp: 0
   Scalar::Util: 0
@@ -28,4 +27,4 @@ requires:
 resources:
   homepage: http://github.com/DarwinAwardWinner/Dist-Zilla-PluginBundle-RTHOMPSON/tree
   repository: git://github.com/DarwinAwardWinner/Dist-Zilla-PluginBundle-RTHOMPSON.git
-version: 0.103531
+version: 0.103532

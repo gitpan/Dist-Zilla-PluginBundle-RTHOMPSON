@@ -9,7 +9,6 @@ dist.ini
 lib/Dist/Zilla/PluginBundle/RTHOMPSON.pm
 t/00-compile.t
 t/000-report-versions.t
-t/author-critic.t
 t/release-has-version.t
 t/release-kwalitee.t
 t/release-pod-coverage.t

@@ -5,7 +5,7 @@ use utf8;
 
 package Dist::Zilla::PluginBundle::RTHOMPSON;
 BEGIN {
-  $Dist::Zilla::PluginBundle::RTHOMPSON::VERSION = '0.103531';
+  $Dist::Zilla::PluginBundle::RTHOMPSON::VERSION = '0.103532';
 }
 # ABSTRACT: RTHOMPSON's Dist::Zilla Configuration
 
@@ -14,7 +14,7 @@ use MooseX::Has::Sugar;
 use Carp;
 with 'Dist::Zilla::Role::PluginBundle::Easy';
 
-sub mvp_multivalue_args { qw( -remove copy_file move_file ) }
+sub mvp_multivalue_args { qw( -remove copy_file move_file allow_dirty ) }
 
 # Returns true for strings of 'true', 'yes', or positive numbers,
 # false otherwise.
@@ -48,6 +48,7 @@ sub configure {
         move_file => [],
         # version control system = git
         vcs => 'git',
+        allow_dirty => [ 'dist.ini', 'README.pod', 'Changes' ],
     };
     my %args = (%$defaults, %{$self->payload});
 
@@ -189,7 +190,9 @@ sub configure {
                 ['Git::Check' => {
                     allow_dirty => [ 'dist.ini', 'README.pod', 'Changes' ],
                 } ],
-                'Git::Commit',
+                [ 'Git::Commit' => {
+                    allow_dirty => [ 'dist.ini', 'README.pod', 'Changes' ],
+                } ],
                 'Git::Tag',
                 # This can't hurt. It's a no-op if github is not involved.
                 'GithubMeta',
@@ -212,7 +215,7 @@ Dist::Zilla::PluginBundle::RTHOMPSON - RTHOMPSON's Dist::Zilla Configuration
 
 =head1 VERSION
 
-version 0.103531
+version 0.103532
 
 =head1 SYNOPSIS
 
@@ -267,7 +270,11 @@ This plugin bundle, in its default configuration, is equivalent to:
     [Git::Check]
     allow_dirty = dist.ini
     allow_dirty = README.pod
+    allow_dirty = Changes
     [Git::Commit]
+    allow_dirty = dist.ini
+    allow_dirty = README.pod
+    allow_dirty = Changes
     [Git::Tag]
     [GithubMeta]
 
@@ -388,6 +395,19 @@ This option specifies which version control system is being used for
 the distribution. Integration for that version control system is
 enabled. The default is 'git', and currently the only other option is
 'none', which does not load any version control plugins.
+
+=head2 allow_dirty
+
+This corresponds to the option of the same name in the Git::Check and
+Git::Commit plugins. Briefly, files listed in C<allow_dirty> are
+allowed to have changes that are not yet committed to git, and during
+the release process, they will be checked in (committed).
+
+The default is F<dist.ini>, F<Changes>, and F<README.pod>. If you
+override the default, you must include these files manually if you
+want them.
+
+This option only has an effect if C<vcs> is 'git'.
 
 =for Pod::Coverage configure mvp_multivalue_args
 
