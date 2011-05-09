@@ -3,7 +3,7 @@ NAME
     Configuration
 
 VERSION
-    version 0.103532
+    version 0.111290
 
 SYNOPSIS
     In dist.ini:
@@ -35,7 +35,8 @@ DESCRIPTION
         type = pod
         location = root
         [CriticTests]
-        [PodTests]
+        [PodCoverageTests]
+        [PodSyntaxTests]
         [HasVersionTests]
         [PortabilityTests]
         [UnusedVarsTests]

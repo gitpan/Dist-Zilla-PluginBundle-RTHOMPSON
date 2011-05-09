@@ -5,7 +5,7 @@ use utf8;
 
 package Dist::Zilla::PluginBundle::RTHOMPSON;
 BEGIN {
-  $Dist::Zilla::PluginBundle::RTHOMPSON::VERSION = '0.103532';
+  $Dist::Zilla::PluginBundle::RTHOMPSON::VERSION = '0.111290';
 }
 # ABSTRACT: RTHOMPSON's Dist::Zilla Configuration
 
@@ -152,7 +152,8 @@ sub configure {
 
         # Tests
         'CriticTests',
-        'PodTests',
+        'PodCoverageTests',
+        'PodSyntaxTests',
         'HasVersionTests',
         'PortabilityTests',
         'UnusedVarsTests',
@@ -172,6 +173,7 @@ sub configure {
 
         # Release checks
         'CheckChangesHasContent',
+        'CheckPrereqsIndexed',
 
         # Release
         'NextRelease',
@@ -215,7 +217,7 @@ Dist::Zilla::PluginBundle::RTHOMPSON - RTHOMPSON's Dist::Zilla Configuration
 
 =head1 VERSION
 
-version 0.103532
+version 0.111290
 
 =head1 SYNOPSIS
 
@@ -249,7 +251,8 @@ This plugin bundle, in its default configuration, is equivalent to:
     type = pod
     location = root
     [CriticTests]
-    [PodTests]
+    [PodCoverageTests]
+    [PodSyntaxTests]
     [HasVersionTests]
     [PortabilityTests]
     [UnusedVarsTests]
