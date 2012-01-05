@@ -21,6 +21,9 @@ meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Dist-Zilla-PluginBundle-RTHOMPSON
+no_index:
+  directory:
+    - corpus
 requires:
   Carp: 0
   Dist::Zilla::Plugin::ArchiveRelease: 0
@@ -80,4 +83,4 @@ requires:
 resources:
   homepage: https://github.com/DarwinAwardWinner/Dist-Zilla-PluginBundle-RTHOMPSON
   repository: https://github.com/DarwinAwardWinner/Dist-Zilla-PluginBundle-RTHOMPSON.git
-version: 0.120050
+version: 0.120051

@@ -5,7 +5,7 @@ use utf8;
 
 package Dist::Zilla::PluginBundle::RTHOMPSON;
 {
-  $Dist::Zilla::PluginBundle::RTHOMPSON::VERSION = '0.120050';
+  $Dist::Zilla::PluginBundle::RTHOMPSON::VERSION = '0.120051';
 }
 # ABSTRACT: RTHOMPSON's Dist::Zilla Configuration
 
@@ -123,6 +123,7 @@ sub configure {
         'PruneCruft',
         'ManifestSkip',
         'MetaYAML',
+        [ 'MetaNoIndex' => { dir => 'corpus' } ],
         'License',
         'ExecDir',
         'ShareDir',
@@ -232,7 +233,7 @@ Dist::Zilla::PluginBundle::RTHOMPSON - RTHOMPSON's Dist::Zilla Configuration
 
 =head1 VERSION
 
-version 0.120050
+version 0.120051
 
 =head1 SYNOPSIS
 
@@ -250,6 +251,8 @@ This plugin bundle, in its default configuration, is equivalent to:
     [PruneCruft]
     [ManifestSkip]
     [MetaYAML]
+    [MetaNoIndex]
+    dir = corpus
     [License]
     [ExecDir]
     [ShareDir]
@@ -424,8 +427,9 @@ an empty string.
 =head2 git_branch, git_remote_branch
 
 This option specifies the branch that is to be checked against its
-remote. The second option C<git_remote_branch> is only needed if the
-remote branch has a different name. It will default to being the same as C<git_branch>
+remote. The default is 'master'. The second option,
+C<git_remote_branch>, is only needed if the remote branch has a
+different name. It will default to being the same as C<git_branch>.
 
 =head2 no_check_remote
 

@@ -3,7 +3,7 @@ NAME
     Configuration
 
 VERSION
-    version 0.120050
+    version 0.120051
 
 SYNOPSIS
     In dist.ini:
@@ -19,6 +19,8 @@ DESCRIPTION
         [PruneCruft]
         [ManifestSkip]
         [MetaYAML]
+        [MetaNoIndex]
+        dir = corpus
         [License]
         [ExecDir]
         [ShareDir]
@@ -181,9 +183,9 @@ OPTIONS
 
   git_branch, git_remote_branch
     This option specifies the branch that is to be checked against its
-    remote. The second option "git_remote_branch" is only needed if the
-    remote branch has a different name. It will default to being the same as
-    "git_branch"
+    remote. The default is 'master'. The second option, "git_remote_branch",
+    is only needed if the remote branch has a different name. It will
+    default to being the same as "git_branch".
 
   no_check_remote
     By default, the Git branch "git_branch" will be checked against the
