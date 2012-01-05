@@ -5,13 +5,17 @@ author:
 build_requires:
   File::Find: 0
   File::Temp: 0
+  Moose::Autobox: 0
   Scalar::Util: 0
+  Test::DZil: 0
   Test::More: 0.94
+  Test::Most: 0
+  autodie: 0
   perl: 5.004
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.200006, CPAN::Meta::Converter version 2.110930'
+generated_by: 'Dist::Zilla version 4.300006, CPAN::Meta::Converter version 2.113640'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -24,15 +28,15 @@ requires:
   Dist::Zilla::Plugin::AutoVersion: 0
   Dist::Zilla::Plugin::CheckChangesHasContent: 0
   Dist::Zilla::Plugin::CheckPrereqsIndexed: 0
-  Dist::Zilla::Plugin::CompileTests: 0
   Dist::Zilla::Plugin::ConfirmRelease: 0
   Dist::Zilla::Plugin::CopyFilesFromBuild: 0
-  Dist::Zilla::Plugin::CriticTests: 0
   Dist::Zilla::Plugin::ExecDir: 0
   Dist::Zilla::Plugin::ExtraTests: 0
   Dist::Zilla::Plugin::GatherDir: 0
   Dist::Zilla::Plugin::Git::Check: 0
   Dist::Zilla::Plugin::Git::Commit: 0
+  Dist::Zilla::Plugin::Git::Push: 0
+  Dist::Zilla::Plugin::Git::Remote::Check: 0
   Dist::Zilla::Plugin::Git::Tag: 0
   Dist::Zilla::Plugin::GithubMeta: 0
   Dist::Zilla::Plugin::HasVersionTests: 0
@@ -49,26 +53,31 @@ requires:
   Dist::Zilla::Plugin::PodCoverageTests: 0
   Dist::Zilla::Plugin::PodSyntaxTests: 0
   Dist::Zilla::Plugin::PodWeaver: 0
-  Dist::Zilla::Plugin::PortabilityTests: 0
   Dist::Zilla::Plugin::Prereqs: 0
   Dist::Zilla::Plugin::PruneCruft: 0
   Dist::Zilla::Plugin::PruneFiles: 0
-  Dist::Zilla::Plugin::ReadmeAnyFromPod: 0
+  Dist::Zilla::Plugin::ReadmeAnyFromPod: 0.120040
   Dist::Zilla::Plugin::ReportVersions: 0
   Dist::Zilla::Plugin::ShareDir: 0
   Dist::Zilla::Plugin::StaticVersion: 0
   Dist::Zilla::Plugin::SynopsisTests: 0
+  Dist::Zilla::Plugin::Test::Compile: 0
+  Dist::Zilla::Plugin::Test::Perl::Critic: 0
+  Dist::Zilla::Plugin::Test::Portability: 0
+  Dist::Zilla::Plugin::Test::UnusedVars: 0
   Dist::Zilla::Plugin::TestRelease: 0
-  Dist::Zilla::Plugin::UnusedVarsTests: 0
   Dist::Zilla::Plugin::UploadToCPAN: 0
   Dist::Zilla::Role::PluginBundle::Easy: 0
   Moose: 0
   MooseX::Has::Sugar: 0
   Pod::Weaver::Section::Installation: 0
   Pod::Weaver::Section::WarrantyDisclaimer: 0
+  feature: 0
   perl: 5.010
+  strict: 0
   utf8: 0
+  warnings: 0
 resources:
-  homepage: http://github.com/DarwinAwardWinner/Dist-Zilla-PluginBundle-RTHOMPSON
-  repository: http://github.com/DarwinAwardWinner/Dist-Zilla-PluginBundle-RTHOMPSON
-version: 0.111290
+  homepage: https://github.com/DarwinAwardWinner/Dist-Zilla-PluginBundle-RTHOMPSON
+  repository: https://github.com/DarwinAwardWinner/Dist-Zilla-PluginBundle-RTHOMPSON.git
+version: 0.120050

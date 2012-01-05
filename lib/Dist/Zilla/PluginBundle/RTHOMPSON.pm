@@ -4,8 +4,8 @@ use feature 'switch';
 use utf8;
 
 package Dist::Zilla::PluginBundle::RTHOMPSON;
-BEGIN {
-  $Dist::Zilla::PluginBundle::RTHOMPSON::VERSION = '0.111290';
+{
+  $Dist::Zilla::PluginBundle::RTHOMPSON::VERSION = '0.120050';
 }
 # ABSTRACT: RTHOMPSON's Dist::Zilla Configuration
 
@@ -48,6 +48,8 @@ sub configure {
         move_file => [],
         # version control system = git
         vcs => 'git',
+        git_remote => 'origin',
+        git_branch => 'master',
         allow_dirty => [ 'dist.ini', 'README.pod', 'Changes' ],
     };
     my %args = (%$defaults, %{$self->payload});
@@ -58,20 +60,16 @@ sub configure {
         return;
     }
 
-    # Add appropriate version plugin
+    # Add appropriate version plugin, if any
     if (lc($args{version}) eq 'auto') {
         $self->add_plugins(
             [ 'AutoVersion' => { major => $args{version_major} } ]
         );
     }
-    elsif (lc($args{version}) eq 'disable') {
-        # No-op
-        $self->add_plugins(
-            [ 'StaticVersion' => { version => '' } ]
-        );
+    elsif (grep { lc($args{version}) eq $_ } (qw(disable none false), q())) {
+        delete $args{version};
     }
     else {
-        # If version is empty, this is a no-op.
         $self->add_plugins(
             [ 'StaticVersion' => { version => $args{version} } ]
         );
@@ -138,26 +136,19 @@ sub configure {
 
         # Generated Docs
         'InstallGuide',
-        ['ReadmeAnyFromPod', 'text.build', {
-            filename => 'README',
-            type => 'text',
-        }],
+        ['ReadmeAnyFromPod', 'ReadmeTextInBuild'],
         # This one gets copied out of the build dir by default, and
         # does not become part of the dist.
-        ['ReadmeAnyFromPod', 'pod.root', {
-            filename => 'README.pod',
-            type => 'pod',
-            location => 'root',
-        }],
+        ['ReadmeAnyFromPod', 'ReadmePodInRoot '],
 
         # Tests
-        'CriticTests',
+        'Test::Perl::Critic',
         'PodCoverageTests',
         'PodSyntaxTests',
         'HasVersionTests',
-        'PortabilityTests',
-        'UnusedVarsTests',
-        ['CompileTests' => {
+        'Test::Portability',
+        'Test::UnusedVars',
+        ['Test::Compile' => {
             # The test files don't seem to compile in the context of
             # this test. But it's ok, because if they really have
             # problems, they'll fail to compile when they run.
@@ -199,6 +190,30 @@ sub configure {
                 # This can't hurt. It's a no-op if github is not involved.
                 'GithubMeta',
             );
+            if ($args{git_remote}) {
+                if (! $args{no_check_remote} && $args{git_branch}) {
+                    $self->add_plugins(
+                        ['Git::Remote::Check' => {
+                            remote_name => $args{git_remote},
+                            branch => $args{git_branch},
+                            remote_branch => $args{git_remote_branch} || $args{git_branch},
+                        } ],
+                    );
+                }
+                if (! $args{no_push}) {
+                    $self->add_plugins(
+                        ['Git::Push' => {
+                            push_to => $args{git_remote},
+                        } ],
+                    );
+                }
+            }
+
+            if ($args{no_push}) {
+                delete $args{push_to};
+            }
+            if ($args{push_to}) {
+            }
         }
         default {
             croak "Unknown vcs: $_\nTry setting vcs = 'none' and setting it up yourself.";
@@ -217,7 +232,7 @@ Dist::Zilla::PluginBundle::RTHOMPSON - RTHOMPSON's Dist::Zilla Configuration
 
 =head1 VERSION
 
-version 0.111290
+version 0.120050
 
 =head1 SYNOPSIS
 
@@ -243,20 +258,15 @@ This plugin bundle, in its default configuration, is equivalent to:
     [PkgVersion]
     [PodWeaver]
     [InstallGuide]
-    [ReadmeAnyFromPod / text.build ]
-    filename = README
-    type = text
-    [ReadmeAnyFromPod / pod.root ]
-    filename = README.pod
-    type = pod
-    location = root
-    [CriticTests]
+    [ReadmeAnyFromPod / ReadmeTextInBuild ]
+    [ReadmeAnyFromPod / ReadmePodInRoot ]
+    [Test::Perl::Critic]
     [PodCoverageTests]
     [PodSyntaxTests]
     [HasVersionTests]
-    [PortabilityTests]
-    [UnusedVarsTests]
-    [CompileTests]
+    [Test::Portability]
+    [Test::UnusedVars]
+    [Test::Compile]
     skip = Test$
     [KwaliteeTests]
     [ExtraTests]
@@ -279,6 +289,12 @@ This plugin bundle, in its default configuration, is equivalent to:
     allow_dirty = README.pod
     allow_dirty = Changes
     [Git::Tag]
+    [Git::Push]
+    push_to = origin
+    [Git::Remote::Check]
+    remote_name = origin
+    branch = master
+    remote_branch = master
     [GithubMeta]
 
 There are several options that can change the default configuation,
@@ -296,7 +312,7 @@ Obviously, the default is not to remove any plugins.
 Example:
 
     ; Remove these two plugins from the bundle
-    -remove = CriticTests
+    -remove = Test::Perl::Critic
     -remove = GithubMeta
 
 =head2 version, version_major
@@ -398,6 +414,36 @@ This option specifies which version control system is being used for
 the distribution. Integration for that version control system is
 enabled. The default is 'git', and currently the only other option is
 'none', which does not load any version control plugins.
+
+=head2 git_remote
+
+This option specifies the primary Git remote for the repository. The
+default is 'origin'. To disable all Git remote operations, set this to
+an empty string.
+
+=head2 git_branch, git_remote_branch
+
+This option specifies the branch that is to be checked against its
+remote. The second option C<git_remote_branch> is only needed if the
+remote branch has a different name. It will default to being the same as C<git_branch>
+
+=head2 no_check_remote
+
+By default, the Git branch C<git_branch> will be checked against the
+remote branch C<git_remote_branch> at the remote specified by
+C<git_remote> using the C<Git::Remote::Check> plugin. If the remote
+branch is ahead of the local branch, the release process will be
+aborted. This option disables the check, allowing a release to happen
+even if the check would fail. This option has no effect if either
+C<git_remote> or C<git_branch> is set to an empty string.
+
+=head2 no_push
+
+By default, the Git repo will be pushed to the remote specified by
+C<git_remote> after every release, to ensure that the remote
+repository contains the latest release. To disable pushing after a
+release, set this option. This option has no effect if git_remote is
+set to an empty string.
 
 =head2 allow_dirty
 

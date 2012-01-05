@@ -3,7 +3,7 @@ NAME
     Configuration
 
 VERSION
-    version 0.111290
+    version 0.120050
 
 SYNOPSIS
     In dist.ini:
@@ -27,20 +27,15 @@ DESCRIPTION
         [PkgVersion]
         [PodWeaver]
         [InstallGuide]
-        [ReadmeAnyFromPod / text.build ]
-        filename = README
-        type = text
-        [ReadmeAnyFromPod / pod.root ]
-        filename = README.pod
-        type = pod
-        location = root
-        [CriticTests]
+        [ReadmeAnyFromPod / ReadmeTextInBuild ]
+        [ReadmeAnyFromPod / ReadmePodInRoot ]
+        [Test::Perl::Critic]
         [PodCoverageTests]
         [PodSyntaxTests]
         [HasVersionTests]
-        [PortabilityTests]
-        [UnusedVarsTests]
-        [CompileTests]
+        [Test::Portability]
+        [Test::UnusedVars]
+        [Test::Compile]
         skip = Test$
         [KwaliteeTests]
         [ExtraTests]
@@ -63,6 +58,12 @@ DESCRIPTION
         allow_dirty = README.pod
         allow_dirty = Changes
         [Git::Tag]
+        [Git::Push]
+        push_to = origin
+        [Git::Remote::Check]
+        remote_name = origin
+        branch = master
+        remote_branch = master
         [GithubMeta]
 
     There are several options that can change the default configuation,
@@ -78,7 +79,7 @@ OPTIONS
     Example:
 
         ; Remove these two plugins from the bundle
-        -remove = CriticTests
+        -remove = Test::Perl::Critic
         -remove = GithubMeta
 
   version, version_major
@@ -172,6 +173,33 @@ OPTIONS
     distribution. Integration for that version control system is enabled.
     The default is 'git', and currently the only other option is 'none',
     which does not load any version control plugins.
+
+  git_remote
+    This option specifies the primary Git remote for the repository. The
+    default is 'origin'. To disable all Git remote operations, set this to
+    an empty string.
+
+  git_branch, git_remote_branch
+    This option specifies the branch that is to be checked against its
+    remote. The second option "git_remote_branch" is only needed if the
+    remote branch has a different name. It will default to being the same as
+    "git_branch"
+
+  no_check_remote
+    By default, the Git branch "git_branch" will be checked against the
+    remote branch "git_remote_branch" at the remote specified by
+    "git_remote" using the "Git::Remote::Check" plugin. If the remote branch
+    is ahead of the local branch, the release process will be aborted. This
+    option disables the check, allowing a release to happen even if the
+    check would fail. This option has no effect if either "git_remote" or
+    "git_branch" is set to an empty string.
+
+  no_push
+    By default, the Git repo will be pushed to the remote specified by
+    "git_remote" after every release, to ensure that the remote repository
+    contains the latest release. To disable pushing after a release, set
+    this option. This option has no effect if git_remote is set to an empty
+    string.
 
   allow_dirty
     This corresponds to the option of the same name in the Git::Check and
