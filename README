@@ -3,7 +3,7 @@ NAME
     Configuration
 
 VERSION
-    version 0.120051
+    version 0.120052
 
 SYNOPSIS
     In dist.ini:
@@ -45,6 +45,8 @@ DESCRIPTION
         [MinimumPerl]
         [AutoPrereqs]
         [CheckChangesHasContent]
+        [CheckPrereqsIndexed]
+        [CheckVersionIncrement]
         [NextRelease]
         [TestRelease]
         [ConfirmRelease]

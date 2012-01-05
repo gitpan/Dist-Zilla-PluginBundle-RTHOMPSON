@@ -31,6 +31,7 @@ requires:
   Dist::Zilla::Plugin::AutoVersion: 0
   Dist::Zilla::Plugin::CheckChangesHasContent: 0
   Dist::Zilla::Plugin::CheckPrereqsIndexed: 0
+  Dist::Zilla::Plugin::CheckVersionIncrement: 0
   Dist::Zilla::Plugin::ConfirmRelease: 0
   Dist::Zilla::Plugin::CopyFilesFromBuild: 0
   Dist::Zilla::Plugin::ExecDir: 0
@@ -83,4 +84,4 @@ requires:
 resources:
   homepage: https://github.com/DarwinAwardWinner/Dist-Zilla-PluginBundle-RTHOMPSON
   repository: https://github.com/DarwinAwardWinner/Dist-Zilla-PluginBundle-RTHOMPSON.git
-version: 0.120051
+version: 0.120052

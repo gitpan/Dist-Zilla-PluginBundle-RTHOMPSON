@@ -5,7 +5,7 @@ use utf8;
 
 package Dist::Zilla::PluginBundle::RTHOMPSON;
 {
-  $Dist::Zilla::PluginBundle::RTHOMPSON::VERSION = '0.120051';
+  $Dist::Zilla::PluginBundle::RTHOMPSON::VERSION = '0.120052';
 }
 # ABSTRACT: RTHOMPSON's Dist::Zilla Configuration
 
@@ -166,6 +166,7 @@ sub configure {
         # Release checks
         'CheckChangesHasContent',
         'CheckPrereqsIndexed',
+        'CheckVersionIncrement',
 
         # Release
         'NextRelease',
@@ -233,7 +234,7 @@ Dist::Zilla::PluginBundle::RTHOMPSON - RTHOMPSON's Dist::Zilla Configuration
 
 =head1 VERSION
 
-version 0.120051
+version 0.120052
 
 =head1 SYNOPSIS
 
@@ -277,6 +278,8 @@ This plugin bundle, in its default configuration, is equivalent to:
     [MinimumPerl]
     [AutoPrereqs]
     [CheckChangesHasContent]
+    [CheckPrereqsIndexed]
+    [CheckVersionIncrement]
     [NextRelease]
     [TestRelease]
     [ConfirmRelease]
