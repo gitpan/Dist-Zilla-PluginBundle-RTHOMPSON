@@ -3,7 +3,7 @@ NAME
     Configuration
 
 VERSION
-    version 0.120052
+    version 0.120120
 
 SYNOPSIS
     In dist.ini:
@@ -39,7 +39,7 @@ DESCRIPTION
         [Test::UnusedVars]
         [Test::Compile]
         skip = Test$
-        [KwaliteeTests]
+        [Test::Kwalitee]
         [ExtraTests]
         [ReportVersions]
         [MinimumPerl]

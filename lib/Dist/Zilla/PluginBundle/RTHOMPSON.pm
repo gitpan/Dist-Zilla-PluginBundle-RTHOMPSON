@@ -5,12 +5,11 @@ use utf8;
 
 package Dist::Zilla::PluginBundle::RTHOMPSON;
 {
-  $Dist::Zilla::PluginBundle::RTHOMPSON::VERSION = '0.120052';
+  $Dist::Zilla::PluginBundle::RTHOMPSON::VERSION = '0.120120';
 }
 # ABSTRACT: RTHOMPSON's Dist::Zilla Configuration
 
 use Moose;
-use MooseX::Has::Sugar;
 use Carp;
 with 'Dist::Zilla::Role::PluginBundle::Easy';
 
@@ -155,7 +154,7 @@ sub configure {
             # problems, they'll fail to compile when they run.
             skip => 'Test$',
         }],
-        'KwaliteeTests',
+        'Test::Kwalitee',
         'ExtraTests',
 
         # Prerequisite checks
@@ -234,7 +233,7 @@ Dist::Zilla::PluginBundle::RTHOMPSON - RTHOMPSON's Dist::Zilla Configuration
 
 =head1 VERSION
 
-version 0.120052
+version 0.120120
 
 =head1 SYNOPSIS
 
@@ -272,7 +271,7 @@ This plugin bundle, in its default configuration, is equivalent to:
     [Test::UnusedVars]
     [Test::Compile]
     skip = Test$
-    [KwaliteeTests]
+    [Test::Kwalitee]
     [ExtraTests]
     [ReportVersions]
     [MinimumPerl]

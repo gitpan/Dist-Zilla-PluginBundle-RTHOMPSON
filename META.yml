@@ -45,7 +45,6 @@ requires:
   Dist::Zilla::Plugin::GithubMeta: 0
   Dist::Zilla::Plugin::HasVersionTests: 0
   Dist::Zilla::Plugin::InstallGuide: 0
-  Dist::Zilla::Plugin::KwaliteeTests: 0
   Dist::Zilla::Plugin::License: 0
   Dist::Zilla::Plugin::MakeMaker: 0
   Dist::Zilla::Plugin::Manifest: 0
@@ -66,6 +65,7 @@ requires:
   Dist::Zilla::Plugin::StaticVersion: 0
   Dist::Zilla::Plugin::SynopsisTests: 0
   Dist::Zilla::Plugin::Test::Compile: 0
+  Dist::Zilla::Plugin::Test::Kwalitee: 0
   Dist::Zilla::Plugin::Test::Perl::Critic: 0
   Dist::Zilla::Plugin::Test::Portability: 0
   Dist::Zilla::Plugin::Test::UnusedVars: 0
@@ -73,7 +73,6 @@ requires:
   Dist::Zilla::Plugin::UploadToCPAN: 0
   Dist::Zilla::Role::PluginBundle::Easy: 0
   Moose: 0
-  MooseX::Has::Sugar: 0
   Pod::Weaver::Section::Installation: 0
   Pod::Weaver::Section::WarrantyDisclaimer: 0
   feature: 0
@@ -84,4 +83,4 @@ requires:
 resources:
   homepage: https://github.com/DarwinAwardWinner/Dist-Zilla-PluginBundle-RTHOMPSON
   repository: https://github.com/DarwinAwardWinner/Dist-Zilla-PluginBundle-RTHOMPSON.git
-version: 0.120052
+version: 0.120120
